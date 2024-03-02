@@ -1,33 +1,43 @@
-// Elements should be in shorted order then only binary search can be used.
-// O(log n) time taken in binary search. Hence it is faster than linear search.....
 #include<iostream>
 using namespace std;
-int main()
+int binarySearch(int arr[], int size, int key)
 {
-    int A[5]={23, 45, 56, 78, 89};
-    int low=0, high=9, key, mid;
+    int start = 0;
+    int end = size-1;
+    int mid=start+(end-start)/2;
 
-    cout<<"Enter key to find in array - ";
-    cin>>key;
-
-    while(low<=high)
+    while (start <= end)
     {
-        mid=(low+high)/2;
-        if(key==A[mid])
+        if(arr[mid] == key )
         {
-            cout<<"Found at index - "<<mid;
-            return 0;
+            return mid;
         }
-        else if (key<A[mid])
+        // goto right wala part
+        if(key > arr[mid])
         {
-            high=mid-1;
+            start = mid + 1;
         }
         else
         {
-            low=mid+1;
+            end = mid -1;
         }
-    }
-    cout<<"Key not found"<<endl;
-    return 0;
 
+        mid = start+(end-start)/2;
+    }
+    return -1;
+}
+int main()
+{
+    int even[6] = {12,34,56,76,88,99};
+
+    int odd[6] = {23,45,56,67,78,89};
+
+    int oddindex = binarySearch(odd, 6, 45);
+
+    cout<<"Index of 45 is - "<<oddindex <<endl;
+
+    int evenIndex = binarySearch(even, 6, 99);
+
+    cout<<"Index of 99 is - "<<evenIndex<<endl;
+    return 0;
 }
