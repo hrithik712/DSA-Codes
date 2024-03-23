@@ -1,43 +1,43 @@
 #include<iostream>
 using namespace std;
-int binarySearch(int arr[], int size, int key)
-{
-    int start = 0;
-    int end = size-1;
-    int mid=start+(end-start)/2;
 
-    while (start <= end)
-    {
-        if(arr[mid] == key )
-        {
-            return mid;
-        }
-        // goto right wala part
-        if(key > arr[mid])
-        {
-            start = mid + 1;
-        }
-        else
-        {
-            end = mid -1;
-        }
+void print(int arr[], int s, int e) {
 
-        mid = start+(end-start)/2;
-    }
-    return -1;
+    for(int i=s; i<=e; i++) {
+        cout << arr[i] << " ";
+    } cout << endl;
 }
-int main()
-{
-    int even[6] = {12,34,56,76,88,99};
 
-    int odd[6] = {23,45,56,67,78,89};
+bool binarySearch(int *arr, int s, int e , int k ) {
 
-    int oddindex = binarySearch(odd, 6, 45);
+    //base case
 
-    cout<<"Index of 45 is - "<<oddindex <<endl;
+    //element not found
+    if(s>e)
+        return false;
 
-    int evenIndex = binarySearch(even, 6, 99);
+    int mid = s + (e-s)/2;
 
-    cout<<"Index of 99 is - "<<evenIndex<<endl;
+    //element found
+    if(arr[mid] == k)
+        return true;
+
+    if(arr[mid] < k) {
+        return binarySearch(arr, mid+1, e, k);
+    }
+    else{
+        return binarySearch(arr, s, mid-1, k);
+    }
+}
+
+
+int main() {
+
+    int arr[11] = {2,4,6,10,14,18,22,38,49,55,222};
+    int size = 11;
+    int key = 222;
+
+    cout << "Present or not " << binarySearch(arr, 0, size-1, key) << endl;
+
     return 0;
 }
